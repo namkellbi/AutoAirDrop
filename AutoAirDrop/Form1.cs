@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace AutoAirDrop
 {
@@ -23,14 +23,14 @@ namespace AutoAirDrop
 
 
 
-        #region
+        #region load list account , airdrop
         private void loadFormAccount()
         {
-           /* danh sách tài khoản hiển thị ở đây
-            * ID là id của tài khoản
-            * twitter
-            * telegram
-            */
+            /* danh sách tài khoản hiển thị ở đây
+             * ID là id của tài khoản
+             * twitter
+             * telegram
+             */
             if (!File.Exists("Account.txt"))
             {
                 Console.WriteLine("File does not exist");
@@ -92,6 +92,22 @@ namespace AutoAirDrop
         private void button1_Click(object sender, EventArgs e)
         {
             // Cần mở được profile theo id account
+
+            FirefoxOptions options = new FirefoxOptions();
+            FirefoxProfile profile = new FirefoxProfileManager().GetProfile("1");
+            options.Profile = profile; // trước thiếu dòng này nên không chạy được đúng profile
+            IWebDriver driver = new FirefoxDriver(options);
+            driver.Navigate().GoToUrl("https://web.telegram.org/k/");
+
+
+
+
+
+
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            //sau khi kết thúc 1 phiên thì sử dụng lệnh quit để clear temp
+            // driver.Quit();
+
         }
     }
 }
